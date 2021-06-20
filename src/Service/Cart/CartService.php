@@ -28,7 +28,22 @@ class CartService {
         $this->session->set('cart', $cart);
     }
 
-    public function remove(int $id) {
+    public function remove(int $id){
+        $cart = $this->session->get('cart', []);
+        
+        if(isset($cart[$id])){
+            if($cart[$id] > 1){
+                $cart[$id]--;
+            } else {
+                unset($cart[$id]);
+            }
+        }
+        
+        $this->session->set('cart', $cart);
+        
+    }
+
+    public function delete(int $id) {
         $cart = $this->session->get('cart', []);
 
         if(isset($cart[$id])){
@@ -37,8 +52,7 @@ class CartService {
 
         $this->session->set('cart', $cart);
     }
-
-
+    
     public function getFullCart() : array {
         $cart = $this->session->get('cart', []);
 

@@ -13,6 +13,8 @@ class CartController extends AbstractController
      */
     public function index(CartService $cartservice){
 
+        
+
         return $this->render(
             'cart/index.html.twig', 
             [
@@ -32,10 +34,19 @@ class CartController extends AbstractController
     }
 
     /**
-     * @Route ("/panier/remove/{id}", name = "cart_remove")
+     * @Route ("/panier/remove/{id}", name="cart_remove")
      */
     public function remove($id, CartService $cartservice){
         $cartservice->remove($id);
+        
+        return $this->redirectToRoute("cart_index");
+    }
+
+    /**
+     * @Route ("/panier/delete/{id}", name = "cart_delete")
+     */
+    public function delete($id, CartService $cartservice){
+        $cartservice->delete($id);
 
         return $this->redirectToRoute("cart_index");
     }
